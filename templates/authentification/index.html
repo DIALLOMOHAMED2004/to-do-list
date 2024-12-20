@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+{% for message in messages %}
+    <strong><i style="color: green;">{{message}}</i></strong>
+{% endfor %}    
+<br><br>
+{% if user.is_authenticated %}
+    <h3>welcome <i style="color: green;">{{ firstname }}</i> You are  login Enjoy annd subscribe.</h3>
+    <button type="submit"><a href="/signout">SignOut</a></button>
+
+
+{% else %}
+
+    <button type="submit"><a href="/signup">SignUp</a></button>
+    <button type="submit"><a href="/signin">SignIn</a></button>
+
+
+{% endif %}   
+
+
+
+{% endblock %} {% endcomment %}
+
+
+
+
+{% block content %}
+<div class="messages">
+    {% for message in messages %}
+        <strong><i class="message">{{message}}</i></strong>
+    {% endfor %}
+</div>
+
+<div class="user-actions">
+    {% if user.is_authenticated %}
+        <h3>Welcome <i class="username">{{ firstname }}</i>! You are logged in. Enjoy and subscribe.</h3>
+        <button class="btn signout"><a href="/signout">Sign Out</a></button>
+        <button class="btn signout"><a href="{% url 'task-list' %}">MES TACHES</a></button>
+    {% else %}
+        <button class="btn signup"><a href="/signup">Sign Up</a></button>
+        <button class="btn signin"><a href="/signin">Sign In</a></button>
+    {% endif %}
+</div>
+
+{% endblock %}

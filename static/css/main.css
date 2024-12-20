@@ -1,0 +1,70 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Messages */
+.messages {
+    margin: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message {
+    color: green;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* User actions */
+.user-actions {
+    text-align: center;
+    margin: 20px;
+}
+
+.username {
+    color: green;
+}
+
+/* Login form */ 
+.login-form {
+     text-align: center; 
+     margin: 20px; 
+     padding: 20px; 
+     background-color: #fff; 
+     border-radius: 5px; 
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); } .login-form h2 { margin-bottom: 20px; } 
+     .login-form label { display: block; margin-bottom: 5px; } 
+     .login-form input { width: 80%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; }
+
+/* Register form */ 
+.register-form { text-align: center; margin: 20px; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); } 
+.register-form h2 { margin-bottom: 20px; } 
+.register-form label { display: block; margin-bottom: 5px; } 
+.register-form input { width: 80%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; }
+
+.btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-center mb-4">Liste des tâches</h2>
+
+<!-- Notifications -->
+{% if messages %}
+<div class="notifications">
+    {% for message in messages %}
+    <div class="alert alert-info">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Formulaire de filtre -->
+<form method="get" class="row g-3">
+    <div class="col-md-6">
+        <label for="priority" class="form-label">Filtrer par priorité :</label>
+        <select name="priority" id="priority" class="form-select">
+            <option value="">-- Toutes les priorités --</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="due_date" class="form-label">Filtrer par date d'échéance :</label>
+        <input type="date" name="due_date" id="due_date" class="form-control">
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Filtrer</button>
+    </div>
+</form>
+
+<!-- Table des tâches -->
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Date d'échéance</th>
+                <th>Priorité</th>
+                <th>Catégorie</th>
+                <th>Date de création</th>
+                <th>Complétée</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.due_date }}</td>
+                <td>{{ task.priority }}</td>
+                <td>{{ task.category }}</td>
+                <td>{{ task.created_at }}</td>
+                <td>{{ task.completed|yesno:"Oui,Non" }}</td>
+                <td>
+                    {% if not task.completed %}
+                    <form method="post" action="{% url 'task-complete' task.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-sm">Compléter</button>
+                    </form>
+                    {% endif %}
+                    <a href="{% url 'task-update' task.pk %}" class="btn btn-warning btn-sm">Modifier</a>
+                    <a href="{% url 'task-delete' task.pk %}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">Aucune tâche trouvée.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Actions supplémentaires -->
+<div class="d-flex justify-content-between align-items-center mt-4">
+    <a href="{% url 'task-export' %}" class="btn btn-primary">Exporter les tâches</a>
+    <form method="post" enctype="multipart/form-data" action="{% url 'task-import' %}" class="d-inline">
+        {% csrf_token %}
+        <label for="file" class="btn btn-secondary">Importer les tâches</label>
+        <input type="file" name="file" id="file" accept=".csv" style="display: none;" onchange="this.form.submit();">
+    </form>
+    <a href="{% url 'task-create' %}" class="btn btn-success">Créer une tâche</a>
+</div>
+{% endblock %}
